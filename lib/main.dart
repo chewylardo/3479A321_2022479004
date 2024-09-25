@@ -8,7 +8,7 @@ import 'package:logger/logger.dart';
 
 const  icon_1 = 'assets/icons/8666812_twitter_social_icon.svg';
 const font_1 = 'miFuente';
-
+var logger = Logger( printer: PrettyPrinter());
 
 
 void main() {
@@ -21,9 +21,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     
+     logger.d('Logger is working');
     return MaterialApp(
       title: 'flutter chewy',
+      
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
+       logger.d('Home page widget build is working');
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
