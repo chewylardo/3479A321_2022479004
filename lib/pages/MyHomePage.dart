@@ -145,25 +145,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),  
             
               
-            //svg,
-            // Text(
-            //  _text(),
-            //),
-            /*Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),*/
+         
           ],
         ),
       ),
    
-     /*floatingActionButton: FloatingActionButton(
-        onPressed: _ResetCounter,
-        
-        tooltip: 'Reset',
-        child: const Icon(Icons.autorenew),
-      ), 
-     */
+    
       persistentFooterButtons: <Widget>[
         TextButton(
             onPressed: () {
