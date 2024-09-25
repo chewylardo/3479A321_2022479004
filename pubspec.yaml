@@ -66,6 +66,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/icons/8666812_twitter_social_icon.svg
+    - assets/icons/8665113_chess_icon.svg
+    - assets/icons/8665927_skull_death_icon.svg
+    - assets/icons/8665991_trophy_icon.svg
    
 
 

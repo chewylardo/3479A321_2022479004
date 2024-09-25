@@ -6,8 +6,6 @@ import 'pages/MyHomePage.dart';
 
 
 
-
-
 const  icon_1 = 'assets/icons/8666812_twitter_social_icon.svg';
 const font_1 = 'miFuente';
 var logger = Logger( printer: PrettyPrinter());
@@ -60,7 +58,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'flutter chewy'),
-      
+      //runApp(const CardExampleApp());
+      //home: const CardExampleApp(),
     );
   }
 }
