@@ -1,4 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
+
+
+
+
+
+const  icon_1 = 'assets/icons/8666812_twitter_social_icon.svg';
+const font_1 = 'miFuente';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+     
     return MaterialApp(
       title: 'flutter chewy',
       theme: ThemeData(
@@ -28,10 +40,24 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
+      
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(fontFamily: font_1), 
+          bodyMedium: TextStyle(fontFamily: font_1),
+          bodySmall: TextStyle(fontFamily: font_1),
+          headlineLarge: TextStyle(fontFamily: font_1, fontSize: 32),
+          headlineMedium: TextStyle(fontFamily: font_1, fontSize: 24),
+      
+        ),
+         
+      
+         
+       
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'flutter chewy'),
+      
     );
   }
 }
@@ -55,8 +81,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+ 
   int _counter = 0;
-
+ 
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -91,16 +118,25 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    final Widget svg = SvgPicture.asset(icon_1,semanticsLabel: 'Example SVG',  height: 128.0,  width: 128.0,  fit: BoxFit.contain );
     var scaffold6 = Scaffold(
+
+     
       appBar: AppBar(
+
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
@@ -128,6 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            svg,
             const Text(
               'has apretado el boton esta cantidad de veces:',
             ),
@@ -138,12 +175,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+   
       floatingActionButton: FloatingActionButton(
         onPressed: _ResetCounter,
         tooltip: 'Reset',
         child: const Icon(Icons.autorenew),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-
+     
       persistentFooterButtons: <Widget>[
         TextButton(
           onPressed: () {
@@ -170,4 +208,8 @@ class _MyHomePageState extends State<MyHomePage> {
     var scaffold = scaffold2;
     return scaffold;
   }
+
+ 
+
+  //aqui termina el programa
 }
