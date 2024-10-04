@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
        logger.d('Home page widget build is working');
     
-     Widget svg = _icono();
+    final Widget svg = SvgPicture.asset(icon_1,semanticsLabel: 'Example SVG',  height: 128.0,  width: 128.0,  fit: BoxFit.contain );
     var scaffold6 = Scaffold(
 
      
@@ -93,9 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-    
+     
         child: Column(
-          
+         
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
@@ -150,7 +150,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
    
-    
+      floatingActionButton: FloatingActionButton(
+        onPressed: _ResetCounter,
+        tooltip: 'Reset',
+        child: const Icon(Icons.autorenew),
+      ), 
+     
       persistentFooterButtons: <Widget>[
         TextButton(
             onPressed: () {
