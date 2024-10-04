@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:logger/logger.dart';
+//import 'package:logger/logger.dart';
 
 
 String icon_1 = 'assets/icons/8665113_chess_icon.svg';
 const font_1 = 'miFuente';
-var logger = Logger( printer: PrettyPrinter());
+//var logger = Logger( printer: PrettyPrinter());
 
 
 
@@ -25,8 +25,11 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+    @override
+  State<MyHomePage > createState() {
+    print('create state');
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -91,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-       logger.d('Home page widget build is working');
+       //logger.d('Home page widget build is working');
     
     final Widget svg = SvgPicture.asset(icon_1,semanticsLabel: 'Example SVG',  height: 128.0,  width: 128.0,  fit: BoxFit.contain );
     var scaffold6 = Scaffold(
