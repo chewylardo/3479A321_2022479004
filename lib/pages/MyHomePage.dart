@@ -26,8 +26,9 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
     @override
+ 
   State<MyHomePage > createState() {
-    print('create state');
+    print('create home state');
     return _MyHomePageState();
   }
 }
@@ -35,7 +36,28 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
  
   int _counter = 0;
+  __MyHomePageState() {
+    print('constructor, mounted: $mounted');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('initState, mounted: $mounted');
+  }
  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies, mounted: $mounted');
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    print('setState');
+    super.setState(fn);
+  }
+
   void _incrementCounter() {
     setState(() {
      
@@ -89,12 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
-       //logger.d('Home page widget build is working');
+      print('home build method');
     
     final Widget svg = SvgPicture.asset(icon_1,semanticsLabel: 'Example SVG',  height: 128.0,  width: 128.0,  fit: BoxFit.contain );
     var scaffold6 = Scaffold(
@@ -198,8 +217,48 @@ class _MyHomePageState extends State<MyHomePage> {
     return scaffold;
   }
 
+    @override
+  void didUpdateWidget(covariant MyHomePage  oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget, mounted: $mounted');
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print('deactivate, mounted: $mounted');
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('dispose, mounted: $mounted');
+  }
+
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    print('reassemble, mounted: $mounted');
+  }
+
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ////////////////////////////////////////////////////////Detalle////////////////////////////////////////////////////////////////
 

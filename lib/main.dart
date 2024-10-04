@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:logger/logger.dart';
+//import 'package:logger/logger.dart';
 import 'pages/MyHomePage.dart';
 
 
@@ -8,7 +8,7 @@ import 'pages/MyHomePage.dart';
 
 const  icon_1 = 'assets/icons/8666812_twitter_social_icon.svg';
 const font_1 = 'miFuente';
-var logger = Logger( printer: PrettyPrinter());
+//var logger = Logger( printer: PrettyPrinter());
 
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-     logger.d('Logger is working');
+     //logger.d('Logger is working');
     return MaterialApp(
       title: 'flutter chewy',
       
