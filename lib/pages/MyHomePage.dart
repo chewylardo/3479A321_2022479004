@@ -7,6 +7,18 @@ String icon_1 = 'assets/icons/8665113_chess_icon.svg';
 const font_1 = 'miFuente';
 var logger = Logger( printer: PrettyPrinter());
 
+
+
+
+
+
+
+////////////////////////////////////////////////////////Home////////////////////////////////////////////////////////////////
+
+
+
+
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -186,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
   
 }
 
+////////////////////////////////////////////////////////Detalle////////////////////////////////////////////////////////////////
 
 class Detalle extends StatelessWidget {
   const Detalle({super.key});
@@ -244,6 +257,12 @@ class Detalle extends StatelessWidget {
   }
 }
 
+
+
+
+
+
+////////////////////////////////////////////////////////Sobre////////////////////////////////////////////////////////////////
 
 class Sobre extends StatelessWidget {
   const Sobre({super.key});
