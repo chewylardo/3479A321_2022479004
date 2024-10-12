@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 //import 'package:logger/logger.dart';
 import 'pages/MyHomePage.dart';
+import 'AppData.dart';
 
 
 
@@ -12,7 +14,12 @@ const font_1 = 'miFuente';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      ChangeNotifierProvider<AppData>(
+      create: (context) => AppData(),
+      child: MyApp(),
+      ),
+   );
 }
 
 class MyApp extends StatelessWidget {

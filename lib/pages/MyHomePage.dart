@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/AppData.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //import 'package:logger/logger.dart';
-
+import 'package:provider/provider.dart';
 
 String icon_1 = 'assets/icons/8665113_chess_icon.svg';
 const font_1 = 'miFuente';
@@ -9,34 +10,8 @@ const font_1 = 'miFuente';
 
 
 
-class auditor {
-
-static List<String> Auditoria = <String>[];
 
 
-  static String imprimir(){
-    String elString = '';
-
-
-
-      for(int i = 0;i<Auditoria.length;i++){
-
-        elString = elString + Auditoria[i];
-
-
-
-
-
-      }
-
-
-
-
-
-    return elString;
-  }
-
-}
 
 
 
@@ -59,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
   _MyHomePageState() {
     print('constructor, mounted: $mounted');
@@ -83,30 +57,16 @@ class _MyHomePageState extends State<MyHomePage> {
     super.setState(fn);
   }
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+ 
 
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
 
-  void _resetCounter() {
-    setState(() {
-      _counter = 0;
-    });
-  }
 
   late String icon_1;
 
   Widget _icono() {
-    if (_counter == 10) {
+    if (context.watch<AppData>().counter == 10) {
       icon_1 = 'assets/icons/8665991_trophy_icon.svg';
-    } else if (_counter == 5) {
+    } else if (context.watch<AppData>().counter == 5) {
       icon_1 = 'assets/icons/8665927_skull_death_icon.svg';
     } else {
       icon_1 = 'assets/icons/8665113_chess_icon.svg';
@@ -124,9 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String _text() {
     String texto = '';
-    if (_counter == 10) {
+    if (context.watch<AppData>().counter == 10) {
       texto = 'VICTORIA';
-    } else if (_counter == 5) {
+    } else if (context.watch<AppData>().counter== 5) {
       texto = 'DERROTA';
     } else {
       texto = 'Has apretado el botón esta cantidad de veces:';
@@ -166,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.home),
               title: const Text('Detalles'),
               onTap: () {
-                  auditor.Auditoria.add( 'detalles \n');
+                  context.read<AppData>().auditor.add( 'usuario fue a detalles \n');
               Navigator.push(
               context,
               MaterialPageRoute(
@@ -181,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Sobre'),
               
               onTap: () {
-                  auditor.Auditoria.add( 'sobre \n');
+                  context.read<AppData>().auditor.add( 'usuario fue a sobre \n');
               Navigator.push(
               context,
               MaterialPageRoute(
@@ -196,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.settings),
               title: const Text('Auditoria'),
               onTap: () {
-                 auditor.Auditoria.add( 'auditoria \n');
+                  context.read<AppData>().auditor.add('usuario fue a auditoria \n');
                   Navigator.push(
               context,
               MaterialPageRoute(
@@ -230,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       Text(
-                        '$_counter',
+                        context.watch<AppData>().counter.toString(),
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       Row(
@@ -238,12 +198,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: <Widget>[
                           TextButton(
                             child: const Text('-1'),
-                            onPressed: _decrementCounter,
+                            onPressed: context.read<AppData>().decrementCounter,
                           ),
                           const SizedBox(width: 8),
                           TextButton(
                             child: const Text('+1'),
-                            onPressed: _incrementCounter,
+                            onPressed: context.read<AppData>().incrementCounter,
+                          ),
+                          TextButton(
+                            child: const Text('reset'),
+                            onPressed: context.read<AppData>().resetCounter,
                           ),
                           const SizedBox(width: 8),
                         ],
@@ -310,12 +274,13 @@ class Detalle extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Detalle'),
       ),
-      body: const Center(
+      body:  Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'informacion sobre detalles',
+              
+              'informacion sobre detalles\n el contador es de: ${context.watch<AppData>().cont()}',
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 20),
@@ -429,7 +394,7 @@ class auditoria extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-        auditor.imprimir(),
+       context.read<AppData>().toStringAud() ,
               style: const TextStyle(fontSize: 24),
             ),
              const SizedBox(height: 20),
