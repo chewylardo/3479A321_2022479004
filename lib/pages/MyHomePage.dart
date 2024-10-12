@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.home),
               title: const Text('Detalles'),
               onTap: () {
-                  context.read<AppData>().auditor.add( 'usuario fue a detalles \n');
+                  context.read<AppData>().actions.add( 'usuario fue a detalles \n');
               Navigator.push(
               context,
               MaterialPageRoute(
@@ -141,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Sobre'),
               
               onTap: () {
-                  context.read<AppData>().auditor.add( 'usuario fue a sobre \n');
+                  context.read<AppData>().actions.add( 'usuario fue a sobre \n');
               Navigator.push(
               context,
               MaterialPageRoute(
@@ -156,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.settings),
               title: const Text('Auditoria'),
               onTap: () {
-                  context.read<AppData>().auditor.add('usuario fue a auditoria \n');
+                  context.read<AppData>().actions.add('usuario fue a auditoria \n');
                   Navigator.push(
               context,
               MaterialPageRoute(

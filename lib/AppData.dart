@@ -3,34 +3,34 @@ import 'package:flutter/material.dart';
 class AppData extends ChangeNotifier {
   // Contador y lista de acciones
   int _contador = 0;
-  List<String> _auditor = [];
+  List<String> _actions = [];
 
   // Getters
   int get counter => _contador;
-  List<String> get auditor => _auditor;
+  List<String> get actions => _actions;
 
 
   void incrementCounter() {
     _contador++;
-    _auditor.add('Usuario aumento el contador a $_contador \n');
+    _actions.add('Usuario aumento el contador a $_contador \n');
     notifyListeners(); 
   }
 
 
   void decrementCounter() {
     _contador--;
-    _auditor.add('Usuario redujo el contador a $_contador \n');
+    _actions.add('Usuario redujo el contador a $_contador \n');
     notifyListeners();
   }
 
   void resetCounter() {
     _contador = 0;
-    _auditor.add(' Usuario reseteo el contador a $_contador \n');
+    _actions.add(' Usuario reseteo el contador a $_contador \n');
     notifyListeners();
   }
 
   void paginas(String a){
-    _auditor.add(a);
+    _actions.add(a);
 
   }
 
@@ -44,9 +44,9 @@ class AppData extends ChangeNotifier {
     String elString = '';
 
     
-      for(int i = 0;i<auditor.length;i++){
+      for(int i = 0;i<actions.length;i++){
 
-        elString = elString + auditor[i];
+        elString = elString + actions[i];
 
 
       }
