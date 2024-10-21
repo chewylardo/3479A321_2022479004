@@ -35,6 +35,8 @@ class AppData extends ChangeNotifier {
   }
 
 
+  void setCounter(int a){_contador = a;}
+
 
 
 

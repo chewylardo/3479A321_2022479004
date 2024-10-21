@@ -3,9 +3,10 @@ import 'package:flutter_application_1/AppData.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 String icon_1 = 'assets/icons/8665113_chess_icon.svg';
 const font_1 = 'miFuente';
+
 //var logger = Logger( printer: PrettyPrinter());
 
 
@@ -27,81 +28,38 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() {
-    print('create home state');
-    return _MyHomePageState();
-  }
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  _MyHomePageState() {
-    print('constructor, mounted: $mounted');
-  }
+  String _userName = '';  // Nombre de usuario desde preferencias
+  int _counter = 0;        // Contador desde preferencias
 
   @override
   void initState() {
     super.initState();
-    print('initState, mounted: $mounted');
+    _loadPreferences();  // Cargar las preferencias al iniciar
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    print('didChangeDependencies, mounted: $mounted');
+  // Método para cargar las preferencias desde SharedPreferences
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? 'Invitado';
+      _counter = prefs.getInt('counter') ?? 0;
+    });
   }
 
-  @override
-  void setState(VoidCallback fn) {
-    print('setState');
-    super.setState(fn);
-  }
-
- 
-
-
-
-  late String icon_1;
-
-  Widget _icono() {
-    if (context.watch<AppData>().counter == 10) {
-      icon_1 = 'assets/icons/8665991_trophy_icon.svg';
-    } else if (context.watch<AppData>().counter == 5) {
-      icon_1 = 'assets/icons/8665927_skull_death_icon.svg';
-    } else {
-      icon_1 = 'assets/icons/8665113_chess_icon.svg';
-    }
-    Widget svg = SvgPicture.asset(
-      icon_1,
-      semanticsLabel: 'Example SVG',
-      height: 128.0,
-      width: 128.0,
-      fit: BoxFit.contain,
-    );
-
-    return svg;
-  }
-
-  String _text() {
-    String texto = '';
-    if (context.watch<AppData>().counter == 10) {
-      texto = 'VICTORIA';
-    } else if (context.watch<AppData>().counter== 5) {
-      texto = 'DERROTA';
-    } else {
-      texto = 'Has apretado el botón esta cantidad de veces:';
-    }
-
-    return texto;
+  // Método para guardar las preferencias en SharedPreferences
+  Future<void> _savePreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userName', _userName);
+    await prefs.setInt('counter', _counter);
   }
 
   @override
   Widget build(BuildContext context) {
-    print('home build method');
-
-    final Widget svg = _icono();
-
-    var scaffold = Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -111,73 +69,56 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+              decoration: BoxDecoration(color: Colors.blue),
               child: Text(
                 'Menú Principal',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
             ListTile(
               leading: const Icon(Icons.home),
               title: const Text('Detalles'),
               onTap: () {
-                  context.read<AppData>().actions.add( 'usuario fue a detalles \n');
-              Navigator.push(
-              context,
-              MaterialPageRoute(
-              
-                builder: (context) => const Detalle(),
-                    ),
-              );
+                context.read<AppData>().actions.add('Usuario fue a detalles\n');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Detalle()),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.info),
               title: const Text('Sobre'),
-              
               onTap: () {
-                  context.read<AppData>().actions.add( 'usuario fue a sobre \n');
-              Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Sobre(),
-                    ),
-              );
-        
-               
+                context.read<AppData>().actions.add('Usuario fue a sobre\n');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Sobre()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text('Auditoría'),
+              onTap: () {
+                context.read<AppData>().actions.add('Usuario fue a auditoría\n');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const auditoria()),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Auditoria'),
-              onTap: () {
-                  context.read<AppData>().actions.add('usuario fue a auditoria \n');
-                  Navigator.push(
-              context,
-              MaterialPageRoute(
-                    builder: (context) => const auditoria(),
-                    ),
-              );
-        
-              },
-            ),
-             ListTile(
-              leading: const Icon(Icons.settings),
               title: const Text('Preferencias'),
               onTap: () {
-                  context.read<AppData>().actions.add('usuario fue a preferencias \n');
-                  Navigator.push(
-              context,
-              MaterialPageRoute(
-                    builder: (context) => const preferencias(),
-                    ),
-              );
-        
+                context.read<AppData>().actions.add('Usuario fue a preferencias\n');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Preferencias()),
+                ).then((_) {
+                  _loadPreferences();  // Recargar preferencias al volver
+                });
               },
             ),
           ],
@@ -187,88 +128,64 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: SizedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      svg,
-                      const SizedBox(height: 20),
-                      Text(
-                        _text(),
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      Text(
-                        context.watch<AppData>().counter.toString(),
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          TextButton(
-                            child: const Text('-1'),
-                            onPressed: context.read<AppData>().decrementCounter,
-                          ),
-                          const SizedBox(width: 8),
-                          TextButton(
-                            child: const Text('+1'),
-                            onPressed: context.read<AppData>().incrementCounter,
-                          ),
-                          TextButton(
-                            child: const Text('reset'),
-                            onPressed: context.read<AppData>().resetCounter,
-                          ),
-                          const SizedBox(width: 8),
-                        ],
-                      )
-                    ],
-                  ),
+            Text(
+              _userName.isNotEmpty ? 'Hola, $_userName!' : 'Bienvenido!',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Has apretado el botón esta cantidad de veces:',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextButton(
+                  child: const Text('-1'),
+                  onPressed: () {
+                    setState(() {
+                      if(_counter > 0){
+                          _counter--;
+                      }
+                     
+                    });
+                    _savePreferences();  // Guardar cambios
+                  },
                 ),
-              ),
+                const SizedBox(width: 8),
+                TextButton(
+                  child: const Text('+1'),
+                  onPressed: () {
+                    setState(() {
+                     if(_counter < 100){
+                          _counter++;
+                      }
+                    });
+                    _savePreferences();  // Guardar cambios
+                  },
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  child: const Text('reset'),
+                  onPressed: () {
+                    setState(() {
+                      _counter = 0;
+                    });
+                    _savePreferences();  // Guardar cambios
+                  },
+                ),
+              ],
             ),
           ],
         ),
       ),
-     
-
     );
-    return scaffold;
-  }
-
-  @override
-  void didUpdateWidget(covariant MyHomePage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    print('didUpdateWidget, mounted: $mounted');
-  }
-
-  @override
-  void deactivate() {
-    super.deactivate();
-    print('deactivate, mounted: $mounted');
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    print('dispose, mounted: $mounted');
-  }
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    print('reassemble, mounted: $mounted');
   }
 }
-
-
-
-
-
 
 
 
@@ -445,13 +362,50 @@ class auditoria extends StatelessWidget {
 
 
 
+class Preferencias extends StatefulWidget {
+  const Preferencias({super.key});
 
-class preferencias extends StatelessWidget {
-  const preferencias({super.key});
+  @override
+  _PreferenciasState createState() => _PreferenciasState();
+}
+
+class _PreferenciasState extends State<Preferencias> {
+  String _userName = '';
+  int _counter = 0;
+  final TextEditingController _userNameController = TextEditingController();
+
+  // Método para cargar las preferencias
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? '';
+      _counter = prefs.getInt('counter') ?? 0;
+      _userNameController.text = _userName; 
+    });
+  }
+
+  // Método para guardar las preferencias
+  Future<void> _savePreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userName', _userName);
+    await prefs.setInt('counter', _counter);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  @override
+  void dispose() {
+    _userNameController.dispose(); 
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var scaffold6 = Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Preferencias'),
       ),
@@ -459,49 +413,48 @@ class preferencias extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-       context.read<AppData>().toStringAud() ,
-              style: const TextStyle(fontSize: 24),
-            ),
-             const SizedBox(height: 20),
           
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                controller: _userNameController,
+                decoration: const InputDecoration(
+                  labelText: 'Nombre de usuario',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _userName = value; 
+                  });
+                  _savePreferences(); 
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+       
+            Slider(
+              value: _counter.toDouble(),
+              min: 0,
+              max: 100,
+              divisions: 100,
+              label: _counter.toString(),
+              onChanged: (double value) {
+                setState(() {
+                  _counter = value.toInt(); 
+                });
+                _savePreferences(); 
+              },
+            ),
           ],
         ),
       ),
       persistentFooterButtons: <Widget>[
-      
         TextButton(
-          onPressed:(){
-               
+          onPressed: () {
             Navigator.pop(context);
           },
-        child: const Text('Volver'),)
-      ]
-      
+          child: const Text('Volver'),
+        ),
+      ],
     );
-    
-    var scaffold5 = scaffold6;
-    var scaffold4 = scaffold5;
-    var scaffold3 = scaffold4;
-    var scaffold2 = scaffold3;
-    var scaffold = scaffold2;
-    return scaffold;
-    
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
