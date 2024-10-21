@@ -166,6 +166,20 @@ class _MyHomePageState extends State<MyHomePage> {
         
               },
             ),
+             ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Preferencias'),
+              onTap: () {
+                  context.read<AppData>().actions.add('usuario fue a preferencias \n');
+                  Navigator.push(
+              context,
+              MaterialPageRoute(
+                    builder: (context) => const preferencias(),
+                    ),
+              );
+        
+              },
+            ),
           ],
         ),
       ),
@@ -425,6 +439,56 @@ class auditoria extends StatelessWidget {
 }
 
 
+
+
+////////////////////////////////////////////////////////Preferencias////////////////////////////////////////////////////////////////
+
+
+
+
+class preferencias extends StatelessWidget {
+  const preferencias({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var scaffold6 = Scaffold(
+      appBar: AppBar(
+        title: const Text('Preferencias'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+       context.read<AppData>().toStringAud() ,
+              style: const TextStyle(fontSize: 24),
+            ),
+             const SizedBox(height: 20),
+          
+          ],
+        ),
+      ),
+      persistentFooterButtons: <Widget>[
+      
+        TextButton(
+          onPressed:(){
+               
+            Navigator.pop(context);
+          },
+        child: const Text('Volver'),)
+      ]
+      
+    );
+    
+    var scaffold5 = scaffold6;
+    var scaffold4 = scaffold5;
+    var scaffold3 = scaffold4;
+    var scaffold2 = scaffold3;
+    var scaffold = scaffold2;
+    return scaffold;
+    
+  }
+}
 
 
 
