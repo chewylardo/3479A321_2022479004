@@ -32,16 +32,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _userName = '';  // Nombre de usuario desde preferencias
-  int _counter = 0;        // Contador desde preferencias
+  String _userName = '';  
+  int _counter = 0;        
 
   @override
   void initState() {
     super.initState();
-    _loadPreferences();  // Cargar las preferencias al iniciar
+    _loadPreferences(); 
   }
 
-  // Método para cargar las preferencias desde SharedPreferences
+ 
   Future<void> _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // Método para guardar las preferencias en SharedPreferences
+  
   Future<void> _savePreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('userName', _userName);
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(builder: (context) => const Preferencias()),
                 ).then((_) {
-                  _loadPreferences();  // Recargar preferencias al volver
+                  _loadPreferences();  
                 });
               },
             ),
@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                      
                     });
-                    _savePreferences();  // Guardar cambios
+                    _savePreferences(); 
                   },
                 ),
                 const SizedBox(width: 8),
@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           _counter++;
                       }
                     });
-                    _savePreferences();  // Guardar cambios
+                    _savePreferences(); 
                   },
                 ),
                 const SizedBox(width: 8),
@@ -175,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       _counter = 0;
                     });
-                    _savePreferences();  // Guardar cambios
+                    _savePreferences(); 
                   },
                 ),
               ],
@@ -374,7 +374,7 @@ class _PreferenciasState extends State<Preferencias> {
   int _counter = 0;
   final TextEditingController _userNameController = TextEditingController();
 
-  // Método para cargar las preferencias
+ 
   Future<void> _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -384,7 +384,7 @@ class _PreferenciasState extends State<Preferencias> {
     });
   }
 
-  // Método para guardar las preferencias
+ 
   Future<void> _savePreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('userName', _userName);
